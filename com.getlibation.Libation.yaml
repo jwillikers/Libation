@@ -1,0 +1,83 @@
+id: com.getlibation.Libation
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.dotnet8
+build-options:
+  prepend-path: "/usr/lib/sdk/dotnet8/bin"
+  append-ld-library-path: "/usr/lib/sdk/dotnet8/lib"
+  prepend-pkg-config-path: "/usr/lib/sdk/dotnet8/lib/pkgconfig"
+command: Libation
+finish-args:
+  # - --filesystem=~/Libation
+  - --filesystem=home
+  - --device=dri
+  - --socket=x11
+  - --share=ipc
+  - --share=network
+  - --env=DOTNET_ROOT=/app/lib/dotnet
+modules:
+  - name: dotnet
+    buildsystem: simple
+    build-commands:
+      - /usr/lib/sdk/dotnet8/bin/install.sh
+  - name: libation
+    buildsystem: simple
+    build-options:
+      env:
+        DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+      arch:
+        aarch64:
+          env:
+            RUNTIME: linux-arm64
+        x86_64:
+          env:
+            RUNTIME: linux-x64
+    build-commands:
+      - pwd
+      - ls -al
+      - ls -al Source
+      - install -D Source/LoadByOS/LinuxConfigApp/Libation.desktop ${FLATPAK_DEST}/share/applications/$FLATPAK_ID.desktop
+      - sed --in-place 's|/usr/bin/libation|/app/bin/Libation|' ${FLATPAK_DEST}/share/applications/$FLATPAK_ID.desktop
+      - sed --in-place 's|Icon=libation|Icon=com.getlibation.Libation.svg|' ${FLATPAK_DEST}/share/applications/$FLATPAK_ID.desktop
+      - install -D Source/LoadByOS/LinuxConfigApp/libation_glass.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/$FLATPAK_ID.svg
+      - install -D --target-directory=${FLATPAK_DEST}/share/metainfo Source/LoadByOS/LinuxConfigApp/$FLATPAK_ID.metainfo.xml
+      - mkdir --parents ${FLATPAK_DEST}/bin
+      - dotnet publish
+        Source/LibationAvalonia/LibationAvalonia.csproj
+        --configuration Release
+        --no-self-contained
+        --output="$FLATPAK_DEST/bin"
+        -p:PublishProfile=LibationAvalonia/Properties/PublishProfiles/LinuxProfile.pubxml
+        --runtime $RUNTIME
+        --source ./nuget-sources
+      - dotnet publish
+        Source/HangoverAvalonia/HangoverAvalonia.csproj
+        --configuration Release
+        --no-self-contained
+        --output="$FLATPAK_DEST/bin"
+        -p:PublishProfile=HangoverAvalonia/Properties/PublishProfiles/LinuxProfile.pubxml
+        --runtime $RUNTIME
+        --source ./nuget-sources
+    sources:
+      - nuget-sources-aarch64.json
+      - nuget-sources-x86_64.json
+      - type: dir
+        path: '.'
+        skip:
+          - .cache
+          - .github
+          - .vscode
+          - build
+          - build-dir
+          - repo
+      # - type: git
+      #   url: <git-url>
+      # - type: git
+      #   url: https://github.com/jellyfin/jellyfin.git
+      #   commit: e93d03d8cbff2122d7296f477604146f64758a73
+      #   tag: v10.8.13
+      #   x-checker-data:
+      #     type: git
+      #     tag-pattern: ^v([\d.]+)$
