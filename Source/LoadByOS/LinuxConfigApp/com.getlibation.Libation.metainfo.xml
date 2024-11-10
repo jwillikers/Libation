@@ -29,12 +29,36 @@
   <url type="donation">https://paypal.me/mcrackan?locale.x=en_us</url>
   <url type="homepage">https://getlibation.com</url>
   <url type="vcs-browser">https://github.com/rmcrackan/Libation</url>
-  <!-- <screenshots>
+  <screenshots>
     <screenshot type="default">
-      <image></image>
-      <caption></caption>
+      <image>https://raw.githubusercontent.com/rmcrackan/Libation/refs/heads/master/Source/LoadByOS/LinuxConfigApp/screenshots/main-page-light.png</image>
+      <caption>Listing of audiobooks</caption>
     </screenshot>
-  </screenshots> -->
+    <screenshot>
+      <image>https://raw.githubusercontent.com/rmcrackan/Libation/refs/heads/master/Source/LoadByOS/LinuxConfigApp/screenshots/main-page-dark.png</image>
+      <caption>Listing of audiobooks</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/rmcrackan/Libation/refs/heads/master/Source/LoadByOS/LinuxConfigApp/screenshots/filter.png</image>
+      <caption>Listing of audiobooks filtered to show titles from a specific series</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/rmcrackan/Libation/refs/heads/master/Source/LoadByOS/LinuxConfigApp/screenshots/important-settings.png</image>
+      <caption>Settings page with basic settings</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/rmcrackan/Libation/refs/heads/master/Source/LoadByOS/LinuxConfigApp/screenshots/audio-file-settings.png</image>
+      <caption>Settings for audio file format and conversion</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/rmcrackan/Libation/refs/heads/master/Source/LoadByOS/LinuxConfigApp/screenshots/download-decrypt-settings.png</image>
+      <caption>Download and decrypt settings</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/rmcrackan/Libation/refs/heads/master/Source/LoadByOS/LinuxConfigApp/screenshots/accounts.png</image>
+      <caption>Account list</caption>
+    </screenshot>
+  </screenshots>
   <releases>
     <release version="11.5.2" date="2024-10-25">
       <description>
